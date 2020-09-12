@@ -96,10 +96,6 @@ namespace Lidarr.Api.V1.Config
                 ? null
                 : _filenameSampleService.GetArtistFolderSample(nameSpec);
 
-            sampleResource.AlbumFolderExample = nameSpec.AlbumFolderFormat.IsNullOrWhiteSpace()
-                ? null
-                : _filenameSampleService.GetAlbumFolderSample(nameSpec);
-
             return sampleResource;
         }
 

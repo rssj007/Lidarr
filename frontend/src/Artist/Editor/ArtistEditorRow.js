@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ArtistNameLink from 'Artist/ArtistNameLink';
 import ArtistStatusCell from 'Artist/Index/Table/ArtistStatusCell';
-import CheckInput from 'Components/Form/CheckInput';
 import TableRowCell from 'Components/Table/Cells/TableRowCell';
 import TableSelectCell from 'Components/Table/Cells/TableSelectCell';
 import TableRow from 'Components/Table/TableRow';
@@ -11,14 +10,6 @@ import TagListConnector from 'Components/TagListConnector';
 import styles from './ArtistEditorRow.css';
 
 class ArtistEditorRow extends Component {
-
-  //
-  // Listeners
-
-  onAlbumFolderChange = () => {
-    // Mock handler to satisfy `onChange` being required for `CheckInput`.
-    //
-  }
 
   //
   // Render
@@ -33,7 +24,6 @@ class ArtistEditorRow extends Component {
       monitored,
       metadataProfile,
       qualityProfile,
-      albumFolder,
       path,
       tags,
       columns,
@@ -77,15 +67,6 @@ class ArtistEditorRow extends Component {
             </TableRowCell>
         }
 
-        <TableRowCell className={styles.albumFolder}>
-          <CheckInput
-            name="albumFolder"
-            value={albumFolder}
-            isDisabled={true}
-            onChange={this.onAlbumFolderChange}
-          />
-        </TableRowCell>
-
         <TableRowCell>
           {path}
         </TableRowCell>
@@ -109,7 +90,6 @@ ArtistEditorRow.propTypes = {
   monitored: PropTypes.bool.isRequired,
   metadataProfile: PropTypes.object.isRequired,
   qualityProfile: PropTypes.object.isRequired,
-  albumFolder: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.number).isRequired,
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
