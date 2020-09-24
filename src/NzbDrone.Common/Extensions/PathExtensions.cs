@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.EnsureThat;
@@ -225,6 +226,31 @@ namespace NzbDrone.Common.Extensions
             }
 
             return null;
+        }
+
+        public static string GetCommonBaseDirectory(this IEnumerable<string> paths)
+        {
+            var s = paths.Select(x => GetAncestorFolders(x)).ToList();
+            if (!s.Any())
+            {
+                return null;
+            }
+
+            var k = s[0].Count;
+            for (var i = 1; i < s.Count; i++)
+            {
+                k = Math.Min(k, s[i].Count);
+                for (var j = 0; j < k; j++)
+                {
+                    if (s[i][j] != s[0][j])
+                    {
+                        k = j;
+                        break;
+                    }
+                }
+            }
+
+            return s[0].Take(k).Join(Path.DirectorySeparatorChar.ToString());
         }
 
         public static string ProcessNameToExe(this string processName, PlatformType runtime)
